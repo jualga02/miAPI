@@ -2,13 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Entradas;
+use App\Repository\EntradasRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
-use App\Repository\EntradasRepository;
-use App\Entity\Entradas;
+//use Symfony\Component\Routing\Attribute\Route;    //original
+use Symfony\Component\Routing\Annotation\Route;     //copiado de AP9 del profe
+
+
 
 #[Route('/entradas', name: 'app_entradas')]
 final class EntradasController extends AbstractController
@@ -16,7 +19,8 @@ final class EntradasController extends AbstractController
 
     private EntradasRepository $entradasRepository;
 
-    public function __construct(EntradasRepository $entrada){
+    public function __construct(EntradasRepository $entrada)
+    {
         $this->entradasRepository = $entrada; 
     }
 
@@ -33,10 +37,19 @@ final class EntradasController extends AbstractController
     public function add(Request $request):JsonResponse
     {
         $data = json_decode($request->getContent());
-        $this->entradasRepository->new($data->email, 
+
+        /*$this->entradasRepository->new($data->email, 
                                        $data->precio, 
                                        $data->ocupado, 
                                        $data->numero_de_asiento);
+        */
+
+        $nuevaEntrada = new Entradas();   
+        $nuevaEntrada->setEmail($data->email);
+        $nuevaEntrada->setPrecio($data->precio);
+        $nuevaEntrada->setOcupado($data->ocupado);
+        $nuevaEntrada->setNumeroDeAsiento($data->numeroDeAsiento);                                    
+        $this->entradasRepository->save($nuevaEntrada, true);
         return new JsonResponse(['status' => 'Entrada creada'], Response::HTTP_CREATED);
     }
 

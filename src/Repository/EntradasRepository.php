@@ -16,6 +16,24 @@ class EntradasRepository extends ServiceEntityRepository
         parent::__construct($registry, Entradas::class);
     }
 
+    public function save(Entradas $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function remove(Entradas $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
     //    /**
     //     * @return Entradas[] Returns an array of Entradas objects
     //     */
