@@ -62,6 +62,7 @@ final class EntradasController extends AbstractController
             'precio' => $entrada->getPrecio(),
             'ocupado' => $entrada->isOcupado(),
             'numero_de_asiento' => $entrada->getNumeroDeAsiento(),
+            'fecha' => $entrada->getFecha()
         ];
         return new JsonResponse($data, Response::HTTP_OK);
     }

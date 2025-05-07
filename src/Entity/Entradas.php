@@ -25,6 +25,9 @@ class Entradas
     #[ORM\Column]
     private ?int $numeroDeAsiento = null;
 
+    #[ORM\Column]
+    private ?\DateTime $fecha = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +77,18 @@ class Entradas
     public function setNumeroDeAsiento(int $numeroDeAsiento): static
     {
         $this->numeroDeAsiento = $numeroDeAsiento;
+
+        return $this;
+    }
+
+    public function getFecha(): ?\DateTime
+    {
+        return $this->fecha;
+    }
+
+    public function setFecha(\DateTime $fecha): static
+    {
+        $this->fecha = $fecha;
 
         return $this;
     }
