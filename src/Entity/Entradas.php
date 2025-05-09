@@ -86,7 +86,7 @@ class Entradas
         return $this->fecha;
     }
 
-    public function setFecha(\DateTime $fecha): static
+    public function setFecha(?\DateTime $fecha): self
     {
         $this->fecha = $fecha;
 
