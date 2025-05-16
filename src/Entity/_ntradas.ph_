@@ -23,21 +23,21 @@ class Entradas
     private ?bool $ocupado = null;
 
     #[ORM\Column]
-    private ?int $numerodeasiento = null;
+    private ?int $numeroDeAsiento = null;
 
     #[ORM\Column]
     private ?\DateTime $fecha = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 20, nullable: true)]
     private ?string $nombre = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 40, nullable: true)]
     private ?string $apellidos = null;
 
-    #[ORM\Column(length: 100)]
-    private ?string $titulofuncion = null;
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $funcion = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTime $fechafuncion = null;
 
     public function getId(): ?int
@@ -81,14 +81,14 @@ class Entradas
         return $this;
     }
 
-    public function getNumerodeasiento(): ?int
+    public function getNumeroDeAsiento(): ?int
     {
-        return $this->numerodeasiento;
+        return $this->numeroDeAsiento;
     }
 
-    public function setNumerodeasiento(int $numerodeasiento): static
+    public function setNumeroDeAsiento(int $numeroDeAsiento): static
     {
-        $this->numerodeasiento = $numerodeasiento;
+        $this->numeroDeAsiento = $numeroDeAsiento;
 
         return $this;
     }
@@ -110,7 +110,7 @@ class Entradas
         return $this->nombre;
     }
 
-    public function setNombre(string $nombre): static
+    public function setNombre(?string $nombre): static
     {
         $this->nombre = $nombre;
 
@@ -122,21 +122,21 @@ class Entradas
         return $this->apellidos;
     }
 
-    public function setApellidos(string $apellidos): static
+    public function setApellidos(?string $apellidos): static
     {
         $this->apellidos = $apellidos;
 
         return $this;
     }
 
-    public function getTitulofuncion(): ?string
+    public function getFuncion(): ?string
     {
-        return $this->titulofuncion;
+        return $this->funcion;
     }
 
-    public function setTitulofuncion(string $titulofuncion): static
+    public function setFuncion(?string $funcion): static
     {
-        $this->titulofuncion = $titulofuncion;
+        $this->funcion = $funcion;
 
         return $this;
     }

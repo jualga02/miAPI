@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 //use Symfony\Component\Routing\Attribute\Route;    //original
 use Symfony\Component\Routing\Annotation\Route;     //copiado de AP9 del profe
+use DateTime;
 
 
 
@@ -28,8 +29,16 @@ final class EntradasController extends AbstractController
     public function index(): JsonResponse
     {
         return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/EntradasController.php',
+            "id" => 1,
+            "email"=> "correo@correo.es",
+            "precio"=> 25,
+            "ocupado"=> true,
+            "numerodeasiento"=> 234,
+            "fecha" => "2025-09-05 23:01:00",
+            "nombre"=> "Julio",
+            "apellidos"=> "César Herodes",
+            "titulofuncion"=> "Sueño de una Noche de Verano",
+            "fechafuncion"=> "2025-10-5 17:00:00"
         ]);
     }
 
@@ -48,7 +57,13 @@ final class EntradasController extends AbstractController
         $nuevaEntrada->setEmail($data->email);
         $nuevaEntrada->setPrecio($data->precio);
         $nuevaEntrada->setOcupado($data->ocupado);
-        $nuevaEntrada->setNumeroDeAsiento($data->numeroDeAsiento);                                    
+        $nuevaEntrada->setNumerodeasiento($data->numerodeasiento);        
+        $nuevaEntrada->setFecha(new DateTime($data->fecha));
+        $nuevaEntrada->setNombre($data->nombre);
+        $nuevaEntrada->setApellidos($data->apellidos);
+        $nuevaEntrada->setTitulofuncion($data->titulofuncion);
+        $nuevaEntrada->setFechafuncion(new DateTime($data->fechafuncion));      
+
         $this->entradasRepository->save($nuevaEntrada, true);
         return new JsonResponse(['status' => 'Entrada creada'], Response::HTTP_CREATED);
     }
@@ -61,8 +76,13 @@ final class EntradasController extends AbstractController
             'email' => $entrada->getEmail(),
             'precio' => $entrada->getPrecio(),
             'ocupado' => $entrada->isOcupado(),
-            'numero_de_asiento' => $entrada->getNumeroDeAsiento(),
-            'fecha' => $entrada->getFecha()
+            'numerodeasiento' => $entrada->getNumerodeasiento(),
+            'fecha' => $entrada->getFecha(),
+            'nombre' => $entrada->getNombre(),
+            'apellidos' => $entrada->getApellidos(),
+            'titulofuncion' => $entrada->getTitulofuncion(),
+            'fechafuncion' => $entrada->getFechafuncion()
+
         ];
         return new JsonResponse($data, Response::HTTP_OK);
     }
@@ -81,7 +101,12 @@ final class EntradasController extends AbstractController
         empty($data->email) ? true : $entrada->setEmail($data->email);
         empty($data->precio) ? true : $entrada->setPrecio($data->precio);
         empty($data->ocupado) ? true : $entrada->setOcupado($data->ocupado);
-        empty($data->numeroDeAsiento) ? true : $entrada->setNumeroDeAsiento($data->numeroDeAsiento);
+        empty($data->numeroDeAsiento) ? true : $entrada->setNumerodeasiento($data->numeroDeAsiento);
+        empty($data->fecha) ? true : $entrada->setFecha(new DateTime($data->fecha));
+        empty($data->nombre) ? true : $entrada->setNombre($data->nombre);
+        empty($data->apellidos) ? true : $entrada->setApellidos($data->apellidos);
+        empty($data->titulofuncion) ? true : $entrada->setTitulofuncion($data->titulofuncion);
+        empty($data->fechafuncion) ? true : $entrada->setFechafuncion(new DateTime($data->fechafuncion));
         $this->entradasRepository->save($entrada,true);
         return new JsonResponse(['status'=>$mensaje], Response::HTTP_CREATED);
     }
