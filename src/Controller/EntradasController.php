@@ -31,7 +31,7 @@ final class EntradasController extends AbstractController
         return $this->json([
             "id" => 1,
             "email"=> "correo@correo.es",
-            "precio"=> 25,
+            "precio"=> 25.73,
             "ocupado"=> true,
             "numerodeasiento"=> 234,
             "fecha" => "2025-09-05 23:01:00",
